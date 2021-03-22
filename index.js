@@ -42,6 +42,7 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
 
 */
 
+
 // counter1 code
 function counterMaker() {
   let count = 0;
@@ -68,6 +69,7 @@ Use the inning function below to do the following:
   
 NOTE: This will be a callback function for the tasks below
 */
+
 
 function inning(/*Code Here*/){
     /*Code Here*/

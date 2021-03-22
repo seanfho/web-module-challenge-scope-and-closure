@@ -75,9 +75,9 @@ function inning(maxScoreRange = 3){
     return Math.floor(Math.random() * maxScoreRange);
 }
 
-console.log("Task 2 Test 1:", inning());
-console.log("Task 2 Test 2:", inning());
-console.log("Task 2 Test 3:", inning(8));
+console.log("Task 2 Test 1: ", inning());
+console.log("Task 2 Test 2: ", inning());
+console.log("Task 2 Test 3: ", inning(8));
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
@@ -94,19 +94,19 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(callbackFunction, numberOfInnings){
+function finalScore(inningCB, numberOfInnings){
   let homeScore = 0;
   let awayScore = 0;
   for(let i = 0; i < numberOfInnings; i++){
-    homeScore += callbackFunction();
-    awayScore += callbackFunction();
+    homeScore += inningCB();
+    awayScore += inningCB();
   }
   return {Home: homeScore, Away: awayScore};
 }
 
-console.log("Task 3 Test 1:", finalScore(inning, 9));
-console.log("Task 3 Test 2:", finalScore(inning, 9));
-console.log("Task 3 Test 3:", finalScore(inning, 9));
+console.log("Task 3 Test 1: ", finalScore(inning, 9));
+console.log("Task 3 Test 2: ", finalScore(inning, 9));
+console.log("Task 3 Test 3: ", finalScore(inning, 9));
 
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -114,15 +114,15 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(callbackFunction) {
-  let homeScore = callbackFunction();
-  let awayScore = callbackFunction();
-  return {Home: homeScore, Away: awayScore};
+function getInningScore(inningCB) {
+  let homeInningScore = inningCB();
+  let awayInningScore = inningCB();
+  return {Home: homeInningScore, Away: awayInningScore};
 }
 
-console.log("Task 4 Test 1:", getInningScore(inning));
-console.log("Task 4 Test 1:", getInningScore(inning));
-console.log("Task 4 Test 1:", getInningScore(inning));
+console.log("Task 4 Test 1: ", getInningScore(inning));
+console.log("Task 4 Test 2: ", getInningScore(inning));
+console.log("Task 4 Test 3: ", getInningScore(inning));
 
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
@@ -166,10 +166,26 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScoreCB, inningCB, numberOfInnings) {
+  const scoreBoardDisplay = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for(let i = 0; i < numberOfInnings; i++){
+    let inningScore = getInningScoreCB(inningCB);
+    homeScore += inningScore.Home;
+    awayScore += inningScore.Away;
+    scoreBoardDisplay.push(`Inning ${i + 1}: Away ${inningScore.Away} - Home ${inningScore.Home}`);
+  }if(homeScore === awayScore){
+    scoreBoardDisplay.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`);
+  }else{
+    scoreBoardDisplay.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  return scoreBoardDisplay;
 }
 
+console.log("Task 5 Test 1: ", scoreboard(getInningScore, inning, 9));
+console.log("Task 5 Test 2: ", scoreboard(getInningScore, inning, 9));
+console.log("Task 5 Test 3: ", scoreboard(getInningScore, inning, 9));
 
 
 

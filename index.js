@@ -29,7 +29,7 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
 
-    There are several differences between counter1 and counter2. counter1 is a function expression and can be invoked by using the variable name (ie. counter1() - *note that calling/invoking counterMaker() will return the function counter() and not the count value) only after it has been initialized. counter2 is defined using a function declaration and so is necessarily hoisted (ie. it can be invoked before it is declared - *note that counter2() will throw an error if invoked before the global variable "count" is declared since counter2 uses "count" and "count" is a "let" variable and so therefore not hoisted). counter1 uses a local variable "count" and a nested function "counter()" to achieve it's functionality(ie. keeping a count of how many times the function has been called) via a closure (counter() searches and finds the count variable in its parent function counterMaker()). counter1 has the "private" variable of count that is protected by the scope of the counterMaker() function and can only be changed by invoking counter1 (Note* counterMaker() runs only once, initializes the count variable (set to 0) and then the inner function counter() is returned and assigned to "counter1". Now the inner function, counter(), has reference to the original count object each time counter1 is invoked allowing the "count" to persist from one call to the next). counter2 increments the global variable count which, at any point in the program, could have its value updated, however it functions identically to counter1 otherwise.    
+    There are several differences between counter1 and counter2. counter1 is a function expression and can be invoked by using the variable name (ie. counter1() - *note that calling/invoking counterMaker() will return the function counter() and not the count value) only after it has been initialized. counter2 is defined using a function declaration and so is necessarily hoisted (ie. it can be invoked before it is declared - *note that counter2() will throw an error if invoked before the global variable "count" is declared since counter2 uses "count" and "count" is a "let" variable and so therefore not hoisted). counter1 uses a local variable "count" and a nested function "counter()" to achieve it's functionality(ie. keeping a count of how many times the function has been called) via a closure (counter() searches and finds the count variable in its parent function counterMaker()). counter1 has the "private" variable of count that is protected by the scope of the counterMaker() function and can only be changed by invoking counter1 (Note* counterMaker() runs only once, initializes the count variable (set to 0) and then the inner function counter() is returned and assigned to "counter1". Now the inner function, counter(), has reference to the original count object each time counter1 is invoked allowing the "count" to persist from one call to the next). counter2 increments the global variable count which, at any point in the program, could have its value updated, however it functions identically to counter1 otherwise. *Note - addtional counters could be made by creating additional instances of variables equal to countMaker(). These counters will work concurrently without affecting the count of each individual counter.    
 
   2. Which of the two uses a closure? How can you tell?
 
@@ -70,10 +70,14 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-
-function inning(/*Code Here*/){
-    /*Code Here*/
+// parameter maxScoreRange added so that random inning score could have a range from 0 - (maxScoreRange - 1) rather than a static range of 0 - 2. The default value of maxScoreRange has been set to 3 so that a random inning score of 0 - 2 will be returned when inning() is invoked without a parameter.
+function inning(maxScoreRange = 3){
+    return Math.floor(Math.random() * maxScoreRange);
 }
+
+console.log("Task 2 Test 1:", inning());
+console.log("Task 2 Test 2:", inning());
+console.log("Task 2 Test 3:", inning(8));
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
